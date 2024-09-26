@@ -21,6 +21,6 @@ public sealed class User
     [BsonElement("location")]
     public string Location { get; set; }
 
-    //[BsonIgnoreIfNull]
-    //public List<Order> Orders { get; set; }
+    [BsonIgnoreIfNull]
+    public List<Order> Orders { get; set; }
 }

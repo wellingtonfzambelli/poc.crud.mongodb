@@ -26,9 +26,16 @@ public sealed class OrderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Order> CreateAsync(Order order, CancellationToken ct)
+    public async Task<ActionResult> CreateAsync(Order order, CancellationToken ct)
     {
         await _orderServices.CreateAsync(order, ct);
-        return order;
+        return Created();
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteAsync(string orderId, CancellationToken ct)
+    {
+        await _orderServices.RemoveAsync(orderId, ct);
+        return NoContent();
     }
 }

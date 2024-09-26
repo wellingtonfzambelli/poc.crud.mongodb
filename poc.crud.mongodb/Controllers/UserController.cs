@@ -20,7 +20,7 @@ public sealed class UserController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<User?>> GetByIdAsync(string id, CancellationToken ct)
     {
-        var user = await _userServices.GetByIdAsync(id, ct);
+        var user = await _userServices.GetUserByIdAsync(id, ct);
 
         return user is not null ? Ok(user) : NotFound();
     }
@@ -30,5 +30,12 @@ public sealed class UserController : ControllerBase
     {
         await _userServices.CreateAsync(user, ct);
         return user;
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteAsync(string userId, CancellationToken ct)
+    {
+        await _userServices.RemoveAsync(userId, ct);
+        return NoContent();
     }
 }

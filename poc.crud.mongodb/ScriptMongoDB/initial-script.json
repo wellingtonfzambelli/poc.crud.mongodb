@@ -68,51 +68,59 @@ db.createCollection("orders", {
   validationAction: "error"
 })
 
+
+
+
+
+
+
+
 db.users.insertMany([
-  { "name": "John Doe", "age": 29, "email": "john.doe@example.com", "location": "New York" },
-  { "name": "Jane Smith", "age": 34, "email": "jane.smith@example.com", "location": "Los Angeles" },
-  { "name": "Mike Johnson", "age": 45, "email": "mike.johnson@example.com", "location": "Chicago" },
-  { "name": "Emily Davis", "age": 28, "email": "emily.davis@example.com", "location": "San Francisco" },
-  { "name": "Chris Lee", "age": 22, "email": "chris.lee@example.com", "location": "Seattle" },
-  { "name": "Sarah Brown", "age": 40, "email": "sarah.brown@example.com", "location": "Boston" },
-  { "name": "David Wilson", "age": 31, "email": "david.wilson@example.com", "location": "Denver" },
-  { "name": "Linda Martinez", "age": 50, "email": "linda.martinez@example.com", "location": "Houston" },
-  { "name": "James Anderson", "age": 26, "email": "james.anderson@example.com", "location": "Phoenix" },
-  { "name": "Patricia Taylor", "age": 38, "email": "patricia.taylor@example.com", "location": "Miami" }
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a001"), "name": "John Doe", "age": 30, "location": "New York", "email": "johndoe@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a002"), "name": "Jane Smith", "age": 25, "location": "Los Angeles", "email": "janesmith@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a003"), "name": "Alice Johnson", "age": 35, "location": "Chicago", "email": "alicej@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a004"), "name": "Bob Brown", "age": 40, "location": "Miami", "email": "bobbrown@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a005"), "name": "Charlie Green", "age": 28, "location": "Dallas", "email": "charlieg@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a006"), "name": "Diana White", "age": 32, "location": "San Francisco", "email": "dianawhite@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a007"), "name": "Eve Black", "age": 29, "location": "Boston", "email": "eveblack@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a008"), "name": "Frank Wilson", "age": 33, "location": "Houston", "email": "frankw@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a009"), "name": "Grace Lee", "age": 31, "location": "Seattle", "email": "gracelee@example.com" },
+  { "_id": ObjectId("650a7e2f6e4a4f1bcd77a00a"), "name": "Henry Adams", "age": 27, "location": "Denver", "email": "henryadams@example.com" }
 ])
 
+
 db.orders.insertMany([
-  { "userId": 1, "total": 250.50, "items": ["Laptop", "Mouse"], "date": "2024-09-01" },
-  { "userId": 2, "total": 150.10, "items": ["Tablet", "Keyboard"], "date": "2024-09-05" },
-  { "userId": 3, "total": 500.25, "items": ["Monitor", "Printer"], "date": "2024-09-07" },
-  { "userId": 4, "total": 75.75, "items": ["Headphones"], "date": "2024-09-10" },
-  { "userId": 5, "total": 99.99, "items": ["Smartwatch"], "date": "2024-09-12" },
-  { "userId": 6, "total": 200.99, "items": ["Phone", "Charger"], "date": "2024-09-14" },
-  { "userId": 7, "total": 300.80, "items": ["Camera", "Tripod"], "date": "2024-09-15" },
-  { "userId": 8, "total": 45.70, "items": ["Book"], "date": "2024-09-17" },
-  { "userId": 9, "total": 120.60, "items": ["Backpack", "Shoes"], "date": "2024-09-18" },
-  { "userId": 10, "total": 350.50, "items": ["Drone", "Spare Battery"], "date": "2024-09-20" },
-  { "userId": 2, "total": 1400.11, "items": ["Smartphone", "Charger"], "date": "2023-09-02" },
-  { "userId": 3, "total": 300.22, "items": ["Headphones"], "date": "2023-09-03" },
-  { "userId": 1, "total": 600.21, "items": ["Tablet"], "date": "2023-09-04" },
-  { "userId": 4, "total": 400.01, "items": ["Monitor"], "date": "2023-09-05" },
-  { "userId": 5, "total": 100.02, "items": ["Keyboard", "Mouse"], "date": "2023-09-06" },
-  { "userId": 6, "total": 75.09, "items": ["Mouse"], "date": "2023-09-07" },
-  { "userId": 7, "total": 150.56, "items": ["Webcam"], "date": "2023-09-08" },
-  { "userId": 1, "total": 200.51, "items": ["Printer"], "date": "2023-09-09" },
-  { "userId": 2, "total": 250.87, "items": ["Smartwatch"], "date": "2023-09-10" },
-  { "userId": 3, "total": 100.98, "items": ["Router"], "date": "2023-09-11" },
-  { "userId": 4, "total": 45.99, "items": ["Charger"], "date": "2023-09-12" },
-  { "userId": 5, "total": 500.90, "items": ["Graphics Card"], "date": "2023-09-13" },
-  { "userId": 6, "total": 200.99, "items": ["SSD"], "date": "2023-09-14" },
-  { "userId": 7, "total": 50.01, "items": ["USB Hub"], "date": "2023-09-15" },
-  { "userId": 1, "total": 120.05, "items": ["Speaker"], "date": "2023-09-16" },
-  { "userId": 2, "total": 30.01, "items": ["Bluetooth Adapter"], "date": "2023-09-17" },
-  { "userId": 3, "total": 80.90, "items": ["Phone Case"], "date": "2023-09-18" },
-  { "userId": 4, "total": 150.08, "items": ["External Hard Drive"], "date": "2023-09-19" },
-  { "userId": 5, "total": 60.07, "items": ["Laptop Stand"], "date": "2023-09-20" },
-  { "userId": 6, "total": 70.91, "items": ["Game Controller"], "date": "2023-09-21" },
-  { "userId": 1, "total": 1200.94, "items": ["Laptop"], "date": "2023-09-01" }
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a001"), "total": 250.50, "items": ["Laptop", "Mouse"], "date": "2024-09-01" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a002"), "total": 150.10, "items": ["Tablet", "Keyboard"], "date": "2024-09-05" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a003"), "total": 500.25, "items": ["Monitor", "Printer"], "date": "2024-09-07" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a004"), "total": 75.75, "items": ["Headphones"], "date": "2024-09-10" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a005"), "total": 99.99, "items": ["Smartwatch"], "date": "2024-09-12" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a006"), "total": 200.99, "items": ["Phone", "Charger"], "date": "2024-09-14" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a007"), "total": 300.80, "items": ["Camera", "Tripod"], "date": "2024-09-15" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a008"), "total": 45.70, "items": ["Book"], "date": "2024-09-17" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a009"), "total": 120.60, "items": ["Backpack", "Shoes"], "date": "2024-09-18" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a00a"), "total": 350.50, "items": ["Drone", "Spare Battery"], "date": "2024-09-20" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a001"), "total": 1400.11, "items": ["Smartphone", "Charger"], "date": "2023-09-02" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a002"), "total": 300.22, "items": ["Headphones"], "date": "2023-09-03" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a003"), "total": 600.21, "items": ["Tablet"], "date": "2023-09-04" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a004"), "total": 400.01, "items": ["Monitor"], "date": "2023-09-05" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a005"), "total": 100.02, "items": ["Keyboard", "Mouse"], "date": "2023-09-06" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a006"), "total": 75.09, "items": ["Mouse"], "date": "2023-09-07" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a007"), "total": 150.56, "items": ["Webcam"], "date": "2023-09-08" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a008"), "total": 200.51, "items": ["Printer"], "date": "2023-09-09" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a009"), "total": 250.87, "items": ["Smartwatch"], "date": "2023-09-10" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a00a"), "total": 100.98, "items": ["Router"], "date": "2023-09-11" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a001"), "total": 45.99, "items": ["Charger"], "date": "2023-09-12" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a002"), "total": 500.90, "items": ["Graphics Card"], "date": "2023-09-13" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a003"), "total": 200.99, "items": ["SSD"], "date": "2023-09-14" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a004"), "total": 50.01, "items": ["USB Hub"], "date": "2023-09-15" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a005"), "total": 120.05, "items": ["Speaker"], "date": "2023-09-16" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a006"), "total": 30.01, "items": ["Bluetooth Adapter"], "date": "2023-09-17" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a007"), "total": 80.90, "items": ["Phone Case"], "date": "2023-09-18" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a008"), "total": 150.08, "items": ["External Hard Drive"], "date": "2023-09-19" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a009"), "total": 60.07, "items": ["Laptop Stand"], "date": "2023-09-20" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a00a"), "total": 70.91, "items": ["Game Controller"], "date": "2023-09-21" },
+  { "userId": ObjectId("650a7e2f6e4a4f1bcd77a00a"), "total": 1200.94, "items": ["Laptop"], "date": "2023-09-01" }
 ])
 
 db.users.find()
