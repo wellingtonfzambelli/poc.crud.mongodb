@@ -1,0 +1,119 @@
+﻿use salesDB
+
+
+db.createCollection("users", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "age", "email", "location"],
+      properties: {
+        name: {
+          bsonType: "string",
+          description: "The 'name' field must be a string and is required."
+        },
+        age: {
+          bsonType: "int",
+          minimum: 18,
+          maximum: 100,
+          description: "The 'age' field must be an integer between 18 and 100 and is required."
+        },
+        email: {
+          bsonType: "string",
+          pattern: "^.+@.+\\..+$",
+          description: "The 'email' field must be a valid email format."
+        },
+        location: {
+          bsonType: "string",
+          description: "The 'location' field must be a string and is required."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error" 
+})
+
+db.createCollection("orders", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["userId", "total", "items", "date"],
+      properties: {
+        userId: {
+          bsonType: "int",
+          description: "The 'userId' must be an integer and is required."
+        },
+        total: {
+          bsonType: "double",
+          minimum: 0,
+          description: "The 'total' must be a positive double and is required."
+        },
+        items: {
+          bsonType: "array",
+          minItems: 1,
+          items: {
+            bsonType: "string"
+          },
+          description: "The 'items' field must be an array of strings and must contain at least one item."
+        },
+        date: {
+          bsonType: "string",
+          pattern: "^(\\d{4}-\\d{2}-\\d{2})$",
+          description: "The 'date' must be a string in the format YYYY-MM-DD and is required."
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.users.insertMany([
+  { "name": "John Doe", "age": 29, "email": "john.doe@example.com", "location": "New York" },
+  { "name": "Jane Smith", "age": 34, "email": "jane.smith@example.com", "location": "Los Angeles" },
+  { "name": "Mike Johnson", "age": 45, "email": "mike.johnson@example.com", "location": "Chicago" },
+  { "name": "Emily Davis", "age": 28, "email": "emily.davis@example.com", "location": "San Francisco" },
+  { "name": "Chris Lee", "age": 22, "email": "chris.lee@example.com", "location": "Seattle" },
+  { "name": "Sarah Brown", "age": 40, "email": "sarah.brown@example.com", "location": "Boston" },
+  { "name": "David Wilson", "age": 31, "email": "david.wilson@example.com", "location": "Denver" },
+  { "name": "Linda Martinez", "age": 50, "email": "linda.martinez@example.com", "location": "Houston" },
+  { "name": "James Anderson", "age": 26, "email": "james.anderson@example.com", "location": "Phoenix" },
+  { "name": "Patricia Taylor", "age": 38, "email": "patricia.taylor@example.com", "location": "Miami" }
+])
+
+db.orders.insertMany([
+  { "userId": 1, "total": 250.50, "items": ["Laptop", "Mouse"], "date": "2024-09-01" },
+  { "userId": 2, "total": 150.10, "items": ["Tablet", "Keyboard"], "date": "2024-09-05" },
+  { "userId": 3, "total": 500.25, "items": ["Monitor", "Printer"], "date": "2024-09-07" },
+  { "userId": 4, "total": 75.75, "items": ["Headphones"], "date": "2024-09-10" },
+  { "userId": 5, "total": 99.99, "items": ["Smartwatch"], "date": "2024-09-12" },
+  { "userId": 6, "total": 200.99, "items": ["Phone", "Charger"], "date": "2024-09-14" },
+  { "userId": 7, "total": 300.80, "items": ["Camera", "Tripod"], "date": "2024-09-15" },
+  { "userId": 8, "total": 45.70, "items": ["Book"], "date": "2024-09-17" },
+  { "userId": 9, "total": 120.60, "items": ["Backpack", "Shoes"], "date": "2024-09-18" },
+  { "userId": 10, "total": 350.50, "items": ["Drone", "Spare Battery"], "date": "2024-09-20" },
+  { "userId": 2, "total": 1400.11, "items": ["Smartphone", "Charger"], "date": "2023-09-02" },
+  { "userId": 3, "total": 300.22, "items": ["Headphones"], "date": "2023-09-03" },
+  { "userId": 1, "total": 600.21, "items": ["Tablet"], "date": "2023-09-04" },
+  { "userId": 4, "total": 400.01, "items": ["Monitor"], "date": "2023-09-05" },
+  { "userId": 5, "total": 100.02, "items": ["Keyboard", "Mouse"], "date": "2023-09-06" },
+  { "userId": 6, "total": 75.09, "items": ["Mouse"], "date": "2023-09-07" },
+  { "userId": 7, "total": 150.56, "items": ["Webcam"], "date": "2023-09-08" },
+  { "userId": 1, "total": 200.51, "items": ["Printer"], "date": "2023-09-09" },
+  { "userId": 2, "total": 250.87, "items": ["Smartwatch"], "date": "2023-09-10" },
+  { "userId": 3, "total": 100.98, "items": ["Router"], "date": "2023-09-11" },
+  { "userId": 4, "total": 45.99, "items": ["Charger"], "date": "2023-09-12" },
+  { "userId": 5, "total": 500.90, "items": ["Graphics Card"], "date": "2023-09-13" },
+  { "userId": 6, "total": 200.99, "items": ["SSD"], "date": "2023-09-14" },
+  { "userId": 7, "total": 50.01, "items": ["USB Hub"], "date": "2023-09-15" },
+  { "userId": 1, "total": 120.05, "items": ["Speaker"], "date": "2023-09-16" },
+  { "userId": 2, "total": 30.01, "items": ["Bluetooth Adapter"], "date": "2023-09-17" },
+  { "userId": 3, "total": 80.90, "items": ["Phone Case"], "date": "2023-09-18" },
+  { "userId": 4, "total": 150.08, "items": ["External Hard Drive"], "date": "2023-09-19" },
+  { "userId": 5, "total": 60.07, "items": ["Laptop Stand"], "date": "2023-09-20" },
+  { "userId": 6, "total": 70.91, "items": ["Game Controller"], "date": "2023-09-21" },
+  { "userId": 1, "total": 1200.94, "items": ["Laptop"], "date": "2023-09-01" }
+])
+
+db.users.find()
+db.orders.find()

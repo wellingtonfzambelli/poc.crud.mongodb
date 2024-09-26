@@ -1,0 +1,6 @@
+@poc.crud.mongodb_HostAddress = http://localhost:5266
+
+GET {{poc.crud.mongodb_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
