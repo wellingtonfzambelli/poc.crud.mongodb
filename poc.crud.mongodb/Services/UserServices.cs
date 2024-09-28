@@ -11,13 +11,13 @@ public sealed class UserServices
     private readonly IMongoCollection<User> _usersCollection;
     private readonly IMongoCollection<Order> _ordersCollection;
 
-    public UserServices(IOptions<MongoConfig> mongoConfig)
+    public UserServices(IOptions<MongoDbSettings> mongoConfig)
     {
         var mongoClient = new MongoClient(mongoConfig.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(mongoConfig.Value.Database);
+        var mongoDatabase = mongoClient.GetDatabase(mongoConfig.Value.DatabaseName);
 
-        _usersCollection = mongoDatabase.GetCollection<User>(mongoConfig.Value.UsersCollection);
-        _ordersCollection = mongoDatabase.GetCollection<Order>(mongoConfig.Value.OrdersCollection);
+        _usersCollection = mongoDatabase.GetCollection<User>(mongoConfig.Value.UsersCollectionName);
+        _ordersCollection = mongoDatabase.GetCollection<Order>(mongoConfig.Value.OrdersCollectionName);
     }
 
     public async Task<List<User>> GetAsync(CancellationToken ct)

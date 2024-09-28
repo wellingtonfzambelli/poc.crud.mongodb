@@ -9,12 +9,12 @@ public sealed class OrderServices
 {
     private readonly IMongoCollection<Order> _orderCollection;
 
-    public OrderServices(IOptions<MongoConfig> mongoConfig)
+    public OrderServices(IOptions<MongoDbSettings> mongoConfig)
     {
         var mongoClient = new MongoClient(mongoConfig.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(mongoConfig.Value.Database);
+        var mongoDatabase = mongoClient.GetDatabase(mongoConfig.Value.DatabaseName);
 
-        _orderCollection = mongoDatabase.GetCollection<Order>(mongoConfig.Value.OrdersCollection);
+        _orderCollection = mongoDatabase.GetCollection<Order>(mongoConfig.Value.OrdersCollectionName);
     }
 
     public async Task<IList<Order>> GetAsync(CancellationToken ct) =>
