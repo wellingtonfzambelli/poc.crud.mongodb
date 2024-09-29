@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
 namespace poc.crud.mongodb.Entities;
@@ -8,13 +8,14 @@ public sealed class Book
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    [JsonIgnore]
+    public ObjectId Id { get; set; }
 
     [BsonElement("Name")]
     [JsonPropertyName("Name")]
     public string BookName { get; set; } = null!;
 
-    public decimal Price { get; set; }
+    public double Price { get; set; }
 
     public string Category { get; set; } = null!;
 

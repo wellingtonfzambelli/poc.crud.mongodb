@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using poc.crud.mongodb.Arguments.Book;
 using poc.crud.mongodb.Config;
 using poc.crud.mongodb.Entities;
 
@@ -22,18 +24,35 @@ public sealed class BookService
             bookStoreDatabaseSettings.Value.BooksCollectionName);
     }
 
-    public async Task<List<Book>> GetAsync() =>
-        await _booksCollection.Find(_ => true).ToListAsync();
+    public async Task<List<Book>> GetAsync(CancellationToken ct) =>
+        await _booksCollection.Find(_ => true).ToListAsync(ct);
 
-    public async Task<Book?> GetAsync(string id) =>
-        await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+    public async Task<Book?> GetAsync(ObjectId id, CancellationToken ct) =>
+        await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync(ct);
 
-    public async Task CreateAsync(Book newBook) =>
-        await _booksCollection.InsertOneAsync(newBook);
+    public async Task CreateAsync(Book newBook, CancellationToken ct) =>
+        await _booksCollection.InsertOneAsync(newBook, new InsertOneOptions { }, ct);
 
-    public async Task UpdateAsync(string id, Book updatedBook) =>
-        await _booksCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
+    public async Task UpdateBookAsync
+    (
+        ObjectId bookId,
+        UpdateBookRequestDto updatedBook,
+        CancellationToken ct
+    )
+    {
+        var filter = Builders<Book>.Filter.Eq(b => b.Id, bookId);
 
-    public async Task RemoveAsync(string id) =>
-        await _booksCollection.DeleteOneAsync(x => x.Id == id);
+        var update = Builders<Book>.Update
+                        .Set(b => b.Price, updatedBook.Price)
+                        .Set(b => b.BookName, updatedBook.BookName)
+                        .Set(b => b.Category, updatedBook.Category)
+                        .Set(b => b.Author, updatedBook.Author);
+
+        var result = await _booksCollection.UpdateOneAsync(filter, update, cancellationToken: ct);
+
+        Console.WriteLine($"{result.ModifiedCount} document(s) updated.");
+    }
+
+    public async Task RemoveAsync(ObjectId id, CancellationToken ct) =>
+        await _booksCollection.DeleteOneAsync(x => x.Id == id, cancellationToken: ct);
 }

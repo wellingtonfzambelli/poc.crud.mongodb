@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using poc.crud.mongodb.Arguments.Book;
 using poc.crud.mongodb.Entities;
 using poc.crud.mongodb.Services;
 
@@ -14,59 +16,71 @@ public sealed class BookController : ControllerBase
         _bookService = bookService;
 
     [HttpGet]
-    public async Task<List<Book>> Get() =>
-        await _bookService.GetAsync();
+    public async Task<IList<Book>> GetAsync(CancellationToken ct) =>
+        await _bookService.GetAsync(ct);
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Book>> Get(string id)
+    public async Task<ActionResult<Book>> GetByIdAsync(string id, CancellationToken ct)
     {
-        var book = await _bookService.GetAsync(id);
+        var book = await _bookService.GetAsync(ObjectId.Parse(id), ct);
 
         if (book is null)
-        {
             return NotFound();
-        }
 
         return book;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Book newBook)
+    public async Task<IActionResult> PostAsync(Book newBook, CancellationToken ct)
     {
-        await _bookService.CreateAsync(newBook);
+        await _bookService.CreateAsync(newBook, ct);
 
-        return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
+        return Created();
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Book updatedBook)
+    public async Task<IActionResult> UpdateAsync(string id, UpdateBookRequestDto updatedBook, CancellationToken ct)
     {
-        var book = await _bookService.GetAsync(id);
+        var book = await _bookService.GetAsync(ObjectId.Parse(id), ct);
 
         if (book is null)
-        {
             return NotFound();
-        }
 
-        updatedBook.Id = book.Id;
-
-        await _bookService.UpdateAsync(id, updatedBook);
+        await _bookService.UpdateBookAsync(book.Id, updatedBook, ct);
 
         return NoContent();
     }
 
     [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(ObjectId id, CancellationToken ct)
     {
-        var book = await _bookService.GetAsync(id);
+        var book = await _bookService.GetAsync(id, ct);
 
         if (book is null)
         {
             return NotFound();
         }
 
-        await _bookService.RemoveAsync(id);
+        await _bookService.RemoveAsync(id, ct);
 
         return NoContent();
+    }
+
+
+    private IList<UpdateBookRequestDto> ConvertToGetBooksResponseDto(List<Book> books)
+    {
+        foreach (var item in books)
+            return new List<UpdateBookRequestDto>
+            {
+                new UpdateBookRequestDto
+                {
+                    Author = item.Author,
+                    BookName = item.BookName,
+                    Category = item.Category,
+                    Price = item.Price
+                }
+            };
+
+        return null;
     }
 }
