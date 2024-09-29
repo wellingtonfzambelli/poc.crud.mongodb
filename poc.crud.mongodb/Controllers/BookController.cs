@@ -65,22 +65,4 @@ public sealed class BookController : ControllerBase
 
         return NoContent();
     }
-
-
-    private IList<UpdateBookRequestDto> ConvertToGetBooksResponseDto(List<Book> books)
-    {
-        foreach (var item in books)
-            return new List<UpdateBookRequestDto>
-            {
-                new UpdateBookRequestDto
-                {
-                    Author = item.Author,
-                    BookName = item.BookName,
-                    Category = item.Category,
-                    Price = item.Price
-                }
-            };
-
-        return null;
-    }
 }
