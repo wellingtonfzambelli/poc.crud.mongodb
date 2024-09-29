@@ -1,5 +1,5 @@
 # poc.crud.mongodb
-simple CRUD using MongoDB
+simple CRUD using .NET8 + MongoDB + Docker
 
 # Swagger
 ![image](https://github.com/user-attachments/assets/1980508d-3bcf-4084-875f-832b28681bbc)
