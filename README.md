@@ -12,7 +12,7 @@ The application leverages the advantages of MongoDB for flexible data storage an
 - MongoDB
 - Mongo Express
 - Docker _(Docker Compose)_
-- Postman (for API testing)
+- Postman _(for API testing)_
 - Visual Studio 2022
 
 # Swagger
