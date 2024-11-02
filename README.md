@@ -1,5 +1,19 @@
-# poc.crud.mongodb
-simple CRUD using .NET8 + MongoDB + Docker
+# About
+This project implements a simple CRUD (Create, Read, Update, Delete) application using .NET 8, MongoDB, and Docker. 
+
+It serves as an example of how to create and manage data using a NoSQL database in a containerized environment. 
+
+The application leverages the advantages of MongoDB for flexible data storage and retrieval, making it suitable for dynamic and scalable applications.
+
+# Stacks of this project
+- .NET 8
+- Swagger
+- HealthCheck
+- MongoDB
+- Mongo Express
+- Docker _(Docker Compose)_
+- Postman (for API testing)
+- Visual Studio 2022
 
 # Swagger
 ![image](https://github.com/user-attachments/assets/1980508d-3bcf-4084-875f-832b28681bbc)
