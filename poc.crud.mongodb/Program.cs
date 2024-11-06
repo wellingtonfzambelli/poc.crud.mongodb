@@ -3,15 +3,12 @@ using poc.crud.mongodb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+builder.Services.AddHealthChecks()
+    .AddMongoDb(
+        mongodbConnectionString: builder.Configuration["MongoDbConnection:ConnectionString"],
+        name: "mongodb",
+        timeout: TimeSpan.FromSeconds(3),
+        tags: new[] { "ready" });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +27,16 @@ builder.Services.AddControllers()
         options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 var app = builder.Build();
+
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+});
+
+app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => false 
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
